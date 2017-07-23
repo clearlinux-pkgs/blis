@@ -1,0 +1,33 @@
+--- blis-0.2.1/config/haswell/make_defs.mk~	2016-10-05 19:41:34.000000000 +0000
++++ blis-0.2.1/config/haswell/make_defs.mk	2017-07-23 03:33:25.551130768 +0000
+@@ -68,7 +68,7 @@
+ CKOPTFLAGS     := $(COPTFLAGS)
+ 
+ ifeq ($(CC_VENDOR),gcc)
+-CVECFLAGS      := -mavx2 -mfma -mfpmath=sse -march=core-avx2
++CVECFLAGS      := -mavx2 -mfma -fopenmp -march=haswell -fno-semantic-interposition -O3 -g
+ else
+ ifeq ($(CC_VENDOR),icc)
+ CVECFLAGS      := -xCORE-AVX2
+--- blis-0.2.1/config/haswell/make_defs.mk~	2017-07-23 03:33:25.000000000 +0000
++++ blis-0.2.1/config/haswell/make_defs.mk	2017-07-23 03:45:49.329215831 +0000
+@@ -87,7 +87,7 @@
+ 
+ # --- Determine the linker and related flags ---
+ LINKER         := $(CC)
+-SOFLAGS        := -shared
++SOFLAGS        := -shared -Wl,-soname=libblis.so.0
+ LDFLAGS        := -lm
+ 
+ 
+--- blis-0.2.1/config/reference/make_defs.mk~	2016-10-05 19:41:34.000000000 +0000
++++ blis-0.2.1/config/reference/make_defs.mk	2017-07-23 03:47:14.356253112 +0000
+@@ -76,7 +76,7 @@
+ 
+ # --- Determine the linker and related flags ---
+ LINKER         := $(CC)
+-SOFLAGS        := -shared
++SOFLAGS        := -shared -Wl,-soname=libblis.so.0
+ LDFLAGS        := -lm
+ 
+ 
