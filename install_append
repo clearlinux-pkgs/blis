@@ -1,0 +1,33 @@
+
+pushd build
+../configure --disable-static --enable-shared --prefix=/usr \
+--enable-blas --enable-cblas --enable-threading=openmp \
+--libdir=/usr/lib64 penryn
+make V=1 %{?_smp_mflags}
+%make_install
+LD_LIBRARY_PATH=%{buildroot}/usr/lib64 make check
+popd
+
+mkdir build-avx2
+pushd build-avx2
+export CFLAGS="$CFLAGS -march=haswell -mtune=haswell"
+export CXXFLAGS="$CXXFLAGS -march=haswell -mtune-haswell"
+../configure --disable-static --enable-shared --prefix=/usr \
+--enable-blas --enable-cblas --enable-threading=openmp \
+--libdir=/usr/lib64/haswell haswell
+make V=1 %{?_smp_mflags}
+%make_install
+LD_LIBRARY_PATH=%{buildroot}/usr/lib64/haswell make check
+popd
+
+mkdir build-avx512
+pushd build-avx512
+export CFLAGS="$CFLAGS -march=skylake-avx512 -mtune=skylake"
+export CXXFLAGS="$CXXFLAGS -march=haswell -mtune-haswell"
+../configure --disable-static --enable-shared --prefix=/usr \
+--enable-blas --enable-cblas --enable-threading=openmp \
+--libdir=/usr/lib64/haswell/avx512_1 skx
+make V=1 %{?_smp_mflags}
+%make_install
+LD_LIBRARY_PATH=%{buildroot}/usr/lib64/haswell/avx512_1 make check
+popd
