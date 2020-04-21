@@ -4,7 +4,7 @@
 #
 Name     : blis
 Version  : 0.7.0
-Release  : 7
+Release  : 8
 URL      : https://github.com/flame/blis/archive/0.7.0/blis-0.7.0.tar.gz
 Source0  : https://github.com/flame/blis/archive/0.7.0/blis-0.7.0.tar.gz
 Summary  : BLAS-like Library Instantiation Software Framework
